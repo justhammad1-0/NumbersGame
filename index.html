@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Useless Guesser | Dotline Core</title>
+    <meta name="description" content="A toxic, passive-aggressive number guessing game. Try to beat your streak if you have the brain cells for it.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Useless Guesser 🧠💀">
+    <meta property="og:description" content="Can you guess the secret number or will you run out of brain cells first? Beat the streak!">
+    <meta property="og:image" content="og-image.png"> <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+
+    <div class="game-container">
+
+        <select id="range-picker">
+            <option value="50">Easy (1-50)</option>
+            <option value="100" selected>Standard (1-100)</option>
+            <option value="500">Hard (1-500)</option>
+            <option value="1000">Extreme (1-1000)</option>
+        </select>
+
+        <div class="number-control">
+            <button id="minus-btn">-</button>
+            <input id="guess" type="number" name="guess2">
+            <button id="plus-btn">+</button>
+        </div>
+
+        <button id="check-btn">Check</button>
+        <button id="next-btn" class="hidden">Next Round ➡️</button>
+
+        <button id="hint-btn">💡 Hint</button>
+
+        <p id="msg"></p>
+
+        <div id="direction-indicator" class="hidden"></div>
+
+        <div class="rank-badge">
+            Rank: <span id="player-rank">Noob Guesser 😕</span>
+        </div>
+
+        <div class="theme-toggle-wrapper">
+            <button id="theme-toggle-btn" aria-label="Toggle Theme">☀️ Day Mode</button>
+        </div>
+
+        <div class="score-board">
+            <p>Current Streak: <span id="current-streak">0</span>🔥</p>
+            <p>Best Streak: <span id="best-streak">0</span>🏆</p>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

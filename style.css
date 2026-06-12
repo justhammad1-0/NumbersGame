@@ -1,0 +1,457 @@
+/* =========================================
+   RESET & BASE
+========================================= */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg:           #0f0e11;
+    --surface:      #1a1820;
+    --surface-2:    #221f2b;
+    --border:       #2e2a3a;
+    --accent:       #c084fc;
+    --accent-dim:   rgba(192, 132, 252, 0.12);
+    --accent-glow:  rgba(192, 132, 252, 0.25);
+    --green:        #4ade80;
+    --green-dim:    rgba(74, 222, 128, 0.12);
+    --red:          #f87171;
+    --red-dim:      rgba(248, 113, 113, 0.12);
+    --orange:       #fb923c;
+    --orange-dim:   rgba(251, 146, 60, 0.12);
+    --yellow:       #fbbf24;
+    --text:         #e2dff0;
+    --text-muted:   #7c7a8e;
+    --radius:       12px;
+    --transition:   0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse 60% 50% at 50% -10%, rgba(192, 132, 252, 0.15), transparent),
+        radial-gradient(ellipse 40% 30% at 80% 90%, rgba(99, 102, 241, 0.08), transparent);
+    font-family: var(--font-body);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+/* =========================================
+   GAME CONTAINER
+========================================= */
+.game-container {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 32px 80px rgba(0,0,0,0.5),
+        0 0 60px rgba(192,132,252,0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle top shine */
+.game-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(192,132,252,0.4), transparent);
+}
+
+/* =========================================
+   RANGE PICKER
+========================================= */
+#range-picker {
+    width: 100%;
+    padding: 11px 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c7a8e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    transition: border-color var(--transition), color var(--transition);
+}
+
+#range-picker:focus,
+#range-picker:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+#range-picker option {
+    background: #1a1820;
+    color: var(--text);
+}
+
+/* =========================================
+   NUMBER CONTROL (+/- INPUT)
+========================================= */
+.number-control {
+    display: flex;
+    align-items: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--transition);
+}
+
+.number-control:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+#minus-btn,
+#plus-btn {
+    flex-shrink: 0;
+    width: 48px;
+    height: 52px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color var(--transition), background var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#minus-btn:hover,
+#plus-btn:hover {
+    color: var(--accent);
+    background: var(--accent-dim);
+}
+
+#guess {
+    flex: 1;
+    min-width: 0;
+    height: 52px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+#guess::-webkit-outer-spin-button,
+#guess::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#guess::placeholder {
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+#check-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #0f0e11;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+#check-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px var(--accent-glow);
+}
+
+#check-btn:active {
+    transform: translateY(0);
+}
+
+#check-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#next-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+#next-btn:hover {
+    background: rgba(74, 222, 128, 0.2);
+    border-color: var(--green);
+    transform: translateY(-1px);
+}
+
+#hint-btn {
+    width: 100%;
+    padding: 11px;
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--yellow);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+#hint-btn:hover {
+    background: rgba(251, 191, 36, 0.08);
+    border-color: var(--yellow);
+    border-style: solid;
+}
+
+#hint-btn:disabled {
+    color: var(--text-muted);
+    border-color: var(--border);
+    border-style: dashed;
+    background: transparent;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+#msg {
+    min-height: 48px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 4px 0;
+    transition: color var(--transition);
+}
+
+/* =========================================
+   DIRECTION INDICATOR
+========================================= */
+#direction-indicator {
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 3px;
+}
+
+.indicator-higher {
+    background: var(--orange-dim);
+    color: var(--orange);
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.indicator-lower {
+    background: var(--red-dim);
+    color: var(--red);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+/* =========================================
+   SCORE BOARD
+========================================= */
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+}
+
+.score-board p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.score-board span {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+/* =========================================
+   HIDDEN + SHAKE
+========================================= */
+.hidden {
+    display: none !important;
+}
+
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-8px); }
+    40%  { transform: translateX(6px); }
+    60%  { transform: translateX(-6px); }
+    80%  { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+.shake-effect {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* تنسيق رتبة اللاعب */
+.rank-badge {
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    display: inline-block;
+    margin: 5px auto;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   VARIABLES & THEMES
+========================================= */
+:root {
+    /* 🌙 الثيم الداكن الافتراضي (الحالي الخاص بك) */
+    --bg:           #0f0e11;
+    --surface:      #1a1820;
+    --surface-2:    #221f2b;
+    --border:       #2e2a3a;
+    --accent:       #c084fc;
+    --accent-dim:   rgba(192, 132, 252, 0.12);
+    --accent-glow:  rgba(192, 132, 252, 0.25);
+    --green:        #4ade80;
+    --green-dim:    rgba(74, 222, 128, 0.12);
+    --red:          #f87171;
+    --red-dim:      rgba(248, 113, 113, 0.12);
+    --orange:       #fb923c;
+    --orange-dim:   rgba(251, 146, 60, 0.12);
+    --yellow:       #fbbf24;
+    --text:         #e2dff0;
+    --text-muted:   #7c7a8e;
+    --shadow:       0 32px 80px rgba(0,0,0,0.5);
+}
+
+body.light-mode {
+    /* ☀️ ثيم النهار المبهج والمريح للعين الجديد */
+    --bg:           #f7f5f0; /* خلفية دافئة ومريحة */
+    --surface:      #ffffff; /* أسطح بيضاء نظيفة */
+    --surface-2:    #f0ede6; /* تباين ناعم وعميق للداخل */
+    --border:       #e1dbd2; /* حدود خفيفة مريحة */
+    --accent:       #ff6b4a; /* لون مرجاني مبهج وحيوي */
+    --accent-dim:   rgba(255, 107, 74, 0.1);
+    --accent-glow:  rgba(255, 107, 74, 0.2);
+    --green:        #16a34a; /* أخضر نهار أكثر وضوحاً */
+    --green-dim:    rgba(22, 163, 74, 0.1);
+    --red:          #dc2626; 
+    --red-dim:      rgba(220, 38, 38, 0.1);
+    --orange:       #ea580c;
+    --orange-dim:   rgba(234, 88, 12, 0.1);
+    --yellow:       #ca8a04;
+    --text:         #2d2522; /* بني داكن دافئ ومريح جداً للعين بدل الأسود */
+    --text-muted:   #8a8073;
+    --shadow:       0 20px 50px rgba(45, 37, 34, 0.08); /* ظلال ناعمة وخفيفة */
+}
+
+/* =========================================
+   تعديل وتنسيق الزر والمؤثرات المتأثرة
+========================================= */
+body {
+    background-color: var(--bg);
+    /* سنقوم بتعديل التدرج ليدعم الحالتين */
+    background-image:
+        radial-gradient(ellipse 60% 50% at 50% -10%, var(--accent-glow), transparent),
+        radial-gradient(ellipse 40% 30% at 80% 90%, rgba(99, 102, 241, 0.05), transparent);
+    font-family: var(--font-body);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+    transition: background-color 0.4s ease, color 0.4s ease; /* انتقال ناعم عند التبديل */
+}
+
+.game-container {
+    /* ... الأكواد الحالية للمستند بداخلها ... */
+    box-shadow: var(--shadow);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* زر التبديل في الأعلى */
+.theme-toggle-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -5px;
+}
+
+#theme-toggle-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background var(--transition), border-color var(--transition);
+}
+#theme-toggle-btn:hover {
+    border-color: var(--accent);
+}
